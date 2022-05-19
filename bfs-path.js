@@ -8,7 +8,7 @@ function findNeighbors(node, matrix) {
           result.push([row-1,column])
       }
     // Down
-    if(row + 1 <= matrix.length-1) {
+    if(row + 1 <= matrix.length - 1) {
         result.push([row+1,column])
     }
     // Left
@@ -26,24 +26,87 @@ function findNeighbors(node, matrix) {
 
 
 function bfsPath(matrix, startNode, endValue) {
-    // Your code here
-    
-}
+    // let currentNode = matrix[startNode[0]][startNode[1]]
+    // console.log("This is our currentNode " + currentNode)
+    // console.log("This is our startNode " + startNode)
+    let queue = [startNode]
+    let visited = new Set();
+    visited.add(startNode.toString())
+    let resultArr = [];
 
+    while(queue.length){
+
+        let currentPath = queue.shift()
+
+        let currentValue = matrix[currentPath[0]][currentPath[1]]
+        resultArr.push(currentValue)
+        // console.log("currentValue: " + currentValue)
+        console.log(currentValue)
+
+        if(currentValue === endValue) return resultArr;
+
+        let neighbors = findNeighbors(currentPath, matrix)
+//let neighbors of neighbors
+        for(let neighbor of neighbors){
+            if (!visited.has(neighbor.toString())){
+                queue.push(neighbor)
+
+                visited.add(neighbor.toString())
+
+            }
+//I need to go through the entire matrix and check if coordinates are inside "visited"
+//So I need to push the coordinates into "visited"
+        }
+    }
+
+    return false;
+}
+/*  let queue = [[start]];
+  // let startNode = [start];
+  let visited = new Set();
+  visited.add(start);
+  let counter = 0;
+  while (queue.length) {
+    console.log("While loop is on loop # " + counter)
+    console.log({ queue });
+    console.log({ visited });
+    let currentPath = queue.shift();
+    let currentNode = currentPath[currentPath.length - 1];
+    console.log({ currentPath });
+    console.log({ currentNode });
+
+    if (currentNode === end) return currentPath.length - 1; //Returns
+    //Check if the last ele is end
+
+    let neighbors = adjList[currentNode];
+    console.log("My neighbors are " + neighbors)
+    console.log("Begin forEach on loop #" + counter)
+    neighbors.forEach((neighbor) => {
+      if (!visited.has(neighbor)) {
+        queue.push([...currentPath, neighbor]);
+        console.log("Queue looks like this after push " + queue)
+        visited.add(neighbor);
+        console.log("Neighbors look like this after add " + neighbor)
+      }
+    });
+    console.log("End forEach on loop #" + counter)
+    counter++
+  }
+  return false; */
 
 // ***** UNCOMMENT FOR LOCAL TESTING *****
 
-const matrix1 = [
-    [  1,  2,  3,  4 ],
-    [  5,  6,  7,  8 ],
-    [  9, 10, 11, 12 ],
-    [ 13, 14, 15, 16 ]
-];
+// const matrix1 = [
+//     [  1,  2,  3,  4 ],
+//     [  5,  6,  7,  8 ],
+//     [  9, 10, 11, 12 ],
+//     [ 13, 14, 15, 16 ]
+// ];
 
 // // EXAMPLE TESTS #1. Tests for findNeighbors function
-console.log(findNeighbors([1,1], matrix1)) // Finds all 4 neighbors from an
-// internal node (left, right, down, up)
-// [ [ 0, 1 ], [ 2, 1 ], [ 1, 2 ], [ 1, 0 ] ]
+// console.log(findNeighbors([1,1], matrix1)) // Finds all 4 neighbors from an
+// // internal node (left, right, down, up)
+// // [ [ 0, 1 ], [ 2, 1 ], [ 1, 2 ], [ 1, 0 ] ]
 
 // console.log(findNeighbors([0,0], matrix1)); // Finds two neighbors from a
 // // corner node // [ [ 1, 0 ], [ 0, 1 ] ]
