@@ -29,36 +29,32 @@ function bfsPath(matrix, startNode, endValue) {
     // let currentNode = matrix[startNode[0]][startNode[1]]
     // console.log("This is our currentNode " + currentNode)
     // console.log("This is our startNode " + startNode)
+    //console.log(endValue)
     let queue = [startNode]
     let visited = new Set();
     visited.add(startNode.toString())
     let resultArr = [];
 
     while(queue.length){
-
-        let currentPath = queue.shift()
-
-        let currentValue = matrix[currentPath[0]][currentPath[1]]
+        let currentValue = queue.shift()
+        let currentNode = matrix[currentValue[0]][currentValue[1]]
         resultArr.push(currentValue)
-        // console.log("currentValue: " + currentValue)
-        console.log(currentValue)
+        //console.log(currentValue)
 
-        if(currentValue === endValue) return resultArr;
+        if(currentNode === endValue) return resultArr;
 
-        let neighbors = findNeighbors(currentPath, matrix)
-//let neighbors of neighbors
+        let neighbors = findNeighbors(currentValue, matrix)
+
+        //let neighbors of neighbors
         for(let neighbor of neighbors){
             if (!visited.has(neighbor.toString())){
                 queue.push(neighbor)
-
                 visited.add(neighbor.toString())
-
             }
-//I need to go through the entire matrix and check if coordinates are inside "visited"
-//So I need to push the coordinates into "visited"
+            //I need to go through the entire matrix and check if coordinates are inside "visited"
+            //So I need to push the coordinates into "visited"
         }
     }
-
     return false;
 }
 /*  let queue = [[start]];
